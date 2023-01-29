@@ -32,11 +32,11 @@ function App() {
             <img src={episode.img_url} alt="Cover artwork for episode" />
             <h2>{episode.name}</h2>
             <p>{episode.air_date}</p>
-            <ul>
-              {episode.characters.map((character) => (
-                <li>{character}</li>
+            <div>
+              {episode.characters.map((characterUrl) => (
+                <Character url={characterUrl} />
               ))}
-            </ul>
+            </div>
           </div>
         ))}
 
@@ -50,6 +50,20 @@ function App() {
     </div>
   );
 }
+
+const Character = (url) => {
+  const [characterData, setCharacterData] = useState([]);
+
+  useEffect(() => {
+    const fetchCharacterData = async () => {
+      const result = await axios(url);
+      setCharacterData(result.data);
+    };
+    fetchCharacterData();
+  }, []);
+
+  return <img src={characterData.img_url} alt={characterData.name} />;
+};
 
 const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
   const pageNumbers = [];
