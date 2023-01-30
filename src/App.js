@@ -53,8 +53,8 @@ function App() {
                 <p>{episode.air_date}</p>
               </div>
               <div>
-                {episode.characters.map((characterUrl) => (
-                  <Character url={characterUrl} />
+                {episode.characters.map((characterUrl, i) => (
+                  <Character key={i} url={characterUrl} />
                 ))}
               </div>
             </div>
