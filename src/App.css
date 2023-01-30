@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.episode {
+  display: flex;
+  flex-direction: row;
+  margin: 30px;
+}
+
+.details {
+  margin: 10px;
+}
+
+.character {
+  margin: 10px;
+}

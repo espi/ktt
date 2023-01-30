@@ -27,18 +27,27 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>Kernel Tech Test</h1>
-        {currentItems.map((episode) => (
-          <div key={episode.id}>
-            <img src={episode.img_url} alt="Cover artwork for episode" />
-            <h2>{episode.name}</h2>
-            <p>{episode.air_date}</p>
-            <div>
-              {episode.characters.map((characterUrl) => (
-                <Character url={characterUrl} />
-              ))}
+        <div>
+          {currentItems.map((episode) => (
+            <div className="episode" key={episode.id}>
+              <img
+                src={episode.img_url}
+                alt="Cover artwork for episode"
+                width="640"
+                height="360"
+              />
+              <div className="details">
+                <h2>{episode.name}</h2>
+                <p>{episode.air_date}</p>
+              </div>
+              <div>
+                {episode.characters.map((characterUrl) => (
+                  <Character url={characterUrl} />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
 
         <Pagination
           itemsPerPage={itemsPerPage}
@@ -62,7 +71,15 @@ const Character = (url) => {
     fetchCharacterData();
   }, []);
 
-  return <img src={characterData.img_url} alt={characterData.name} />;
+  return (
+    <img
+      className="character"
+      width="100"
+      height="100"
+      src={characterData.img_url || "/loading-gif.gif"}
+      alt={characterData.name}
+    />
+  );
 };
 
 const Pagination = ({ itemsPerPage, totalItems, paginate, currentPage }) => {
