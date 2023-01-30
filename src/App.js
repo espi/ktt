@@ -25,8 +25,10 @@ function App() {
 
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Kernel Tech Test</h1>
+      <div>
+        <header className="App-header">
+          <h1>Kernel Tech Test</h1>
+        </header>
         <div>
           {currentItems.map((episode) => (
             <div className="episode" key={episode.id}>
@@ -55,7 +57,7 @@ function App() {
           paginate={paginate}
           currentPage={currentPage}
         />
-      </header>
+      </div>
     </div>
   );
 }
