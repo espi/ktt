@@ -2,6 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import "./App.css";
 
+const dataUrl = "https://finalspaceapi.com/api/v0/episode";
+
 function App() {
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -9,8 +11,16 @@ function App() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await axios("https://finalspaceapi.com/api/v0/episode");
-      setData(result.data);
+      let localData = localStorage.getItem("KTT_" + dataUrl);
+      if (localData) {
+        console.log("local data found!");
+        setData(JSON.parse(localData));
+      } else {
+        console.log("geting data!");
+        const result = await axios(dataUrl);
+        localStorage.setItem("KTT_" + dataUrl, JSON.stringify(result.data));
+        setData(result.data);
+      }
     };
     fetchData();
   }, []);
@@ -67,8 +77,16 @@ const Character = (url) => {
 
   useEffect(() => {
     const fetchCharacterData = async () => {
-      const result = await axios(url);
-      setCharacterData(result.data);
+      console.log(JSON.stringify(url.url));
+      let localData = localStorage.getItem("KTT_" + url.url);
+      if (localData) {
+        console.log("local data found!");
+        setCharacterData(JSON.parse(localData));
+      } else {
+        const result = await axios(url);
+        localStorage.setItem("KTT_" + url.url, JSON.stringify(result.data));
+        setCharacterData(result.data);
+      }
     };
     fetchCharacterData();
   }, []);
